@@ -73,6 +73,7 @@
 			this.chkStartMinimized = new System.Windows.Forms.CheckBox();
 			this.chkDisableHotKeys = new System.Windows.Forms.CheckBox();
 			this.chkQuickSwitch = new System.Windows.Forms.CheckBox();
+            this.chkOpenControlPanelOnDouble = new System.Windows.Forms.CheckBox();
 			this.tapHotkeys = new System.Windows.Forms.TabPage();
 			this.btnClearAll = new System.Windows.Forms.Button();
 			this.btnDeleteHotKey = new System.Windows.Forms.Button();
@@ -412,6 +413,7 @@
 			this.tapSettings.Controls.Add(this.chkStartMinimized);
 			this.tapSettings.Controls.Add(this.chkDisableHotKeys);
 			this.tapSettings.Controls.Add(this.chkQuickSwitch);
+            this.tapSettings.Controls.Add(this.chkOpenControlPanelOnDouble);
 			this.tapSettings.Location = new System.Drawing.Point(4, 22);
 			this.tapSettings.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
 			this.tapSettings.Name = "tapSettings";
@@ -571,10 +573,24 @@
 			this.toolTip1.SetToolTip(this.chkQuickSwitch, "Left click on the Tray Icon will cycle through favourite playback devices");
 			this.chkQuickSwitch.UseVisualStyleBackColor = true;
 			this.chkQuickSwitch.CheckedChanged += new System.EventHandler(this.chkQuickSwitch_CheckedChanged);
-			// 
-			// tapHotkeys
-			// 
-			this.tapHotkeys.Controls.Add(this.btnClearAll);
+            // 
+            // chkOpenControlPanelOnDouble
+            // 
+            this.chkOpenControlPanelOnDouble.AutoSize = true;
+            this.chkOpenControlPanelOnDouble.Location = new System.Drawing.Point(14, 269);
+            this.chkOpenControlPanelOnDouble.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkOpenControlPanelOnDouble.Name = "chkOpenControlPanelOnDouble";
+            this.chkOpenControlPanelOnDouble.Size = new System.Drawing.Size(174, 17);
+            this.chkOpenControlPanelOnDouble.TabIndex = 17;
+            this.chkOpenControlPanelOnDouble.Text = "Open Control Panel Instead";
+            this.toolTip1.SetToolTip(this.chkOpenControlPanelOnDouble, "When double-clicking the tray icon, open Control Panel instead of Preferences");
+            this.chkOpenControlPanelOnDouble.UseVisualStyleBackColor = true;
+            this.chkOpenControlPanelOnDouble.CheckedChanged += new System.EventHandler(this.chkOpenControlPanelOnDouble_CheckedChanged);
+
+            // 
+            // tapHotkeys
+            // 
+            this.tapHotkeys.Controls.Add(this.btnClearAll);
 			this.tapHotkeys.Controls.Add(this.btnDeleteHotKey);
 			this.tapHotkeys.Controls.Add(this.dataGridView1);
 			this.tapHotkeys.Controls.Add(this.btnEditHotKey);
@@ -1080,6 +1096,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnuFavouriteRecordingDevice;
         private System.Windows.Forms.CheckBox chkDisableHotKeys;
         private System.Windows.Forms.CheckBox chkQuickSwitch;
+        private System.Windows.Forms.CheckBox chkOpenControlPanelOnDouble;
         private System.Windows.Forms.Button btnTestError;
         private System.Windows.Forms.ListView listBoxPlayback;
         private System.Windows.Forms.ColumnHeader columnHeader1;

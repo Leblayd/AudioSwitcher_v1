@@ -765,6 +765,7 @@ namespace FortyOne.AudioSwitcher
             chkAutoStartWithWindows.Checked = Program.Settings.AutoStartWithWindows;
             chkDisableHotKeys.Checked = Program.Settings.DisableHotKeys;
             chkQuickSwitch.Checked = Program.Settings.EnableQuickSwitch;
+            chkOpenControlPanelOnDouble.Checked = Program.Settings.OpenControlPanelInstead;
             chkDualSwitchMode.Checked = Program.Settings.DualSwitchMode;
             chkNotifyUpdates.Checked = Program.Settings.UpdateNotificationsEnabled;
 
@@ -1317,9 +1318,16 @@ namespace FortyOne.AudioSwitcher
 
         private void notifyIcon1_DoubleClick(object sender, EventArgs e)
         {
-            Show();
-            BringToFront();
-            SetForegroundWindow(Handle);
+            if (Program.Settings.OpenControlPanelInstead)
+            {
+                openControlPanelPlayback_Click(sender, e);
+            }
+            else
+            {
+                Show();
+                BringToFront();
+                SetForegroundWindow(Handle);
+            }
         }
 
         private void Form1_Activated(object sender, EventArgs e)
@@ -1363,6 +1371,11 @@ namespace FortyOne.AudioSwitcher
         private void chkQuickSwitch_CheckedChanged(object sender, EventArgs e)
         {
             Program.Settings.EnableQuickSwitch = chkQuickSwitch.Checked;
+        }
+
+        private void chkOpenControlPanelOnDouble_CheckedChanged(object sender, EventArgs e)
+        {
+            Program.Settings.OpenControlPanelInstead = chkOpenControlPanelOnDouble.Checked;
         }
 
         private void chkDualSwitchMode_CheckedChanged(object sender, EventArgs e)

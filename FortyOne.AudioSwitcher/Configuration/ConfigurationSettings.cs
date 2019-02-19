@@ -17,6 +17,7 @@ namespace FortyOne.AudioSwitcher.Configuration
         public const string SETTING_WINDOWHEIGHT = "WindowHeight";
         public const string SETTING_DISABLEHOTKEYS = "DisableHotKeys";
         public const string SETTING_ENABLEQUICKSWITCH = "EnableQuickSwitch";
+        public const string SETTING_OPENCONTROLPANELINSTEAD = "OpenControlPanelInsteadOfPreferences";
         public const string SETTING_CHECKFORUPDATESONSTARTUP = "CheckForUpdatesOnStartup";
         public const string SETTING_POLLFORUPDATES = "PollForUpdates";
         public const string SETTING_STARTUPRECORDINGDEVICE = "StartupRecordingDeviceID";
@@ -230,6 +231,16 @@ namespace FortyOne.AudioSwitcher.Configuration
             set { _configWriter.Set(SETTING_ENABLEQUICKSWITCH, value.ToString()); }
         }
 
+        public bool OpenControlPanelInstead
+        {
+            get
+            {
+                return
+                    Convert.ToBoolean(_configWriter.Get(SETTING_OPENCONTROLPANELINSTEAD));
+            }
+            set { _configWriter.Set(SETTING_OPENCONTROLPANELINSTEAD, value.ToString()); }
+        }
+
         public bool UpdateNotificationsEnabled
         {
             get
@@ -256,6 +267,9 @@ namespace FortyOne.AudioSwitcher.Configuration
 
             if (!SettingExists(SETTING_ENABLEQUICKSWITCH))
                 EnableQuickSwitch = false;
+
+            if (!SettingExists(SETTING_OPENCONTROLPANELINSTEAD))
+                OpenControlPanelInstead = false;
 
             if (!SettingExists(SETTING_HOTKEYS))
                 HotKeys = "[]";
