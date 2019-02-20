@@ -5,6 +5,6 @@
         string Path { get; set; }
         string Get(string key);
         bool Exists(string key);
-        void Set(string key, string value);
+        void Set(string key, object value);
     }
 }

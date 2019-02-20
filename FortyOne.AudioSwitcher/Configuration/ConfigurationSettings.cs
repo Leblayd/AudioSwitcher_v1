@@ -3,6 +3,8 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using Microsoft.Win32;
 using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace FortyOne.AudioSwitcher.Configuration
 {
@@ -10,26 +12,6 @@ namespace FortyOne.AudioSwitcher.Configuration
     {
         public const string GUID_REGEX = @"([a-z0-9]{8}[-][a-z0-9]{4}[-][a-z0-9]{4}[-][a-z0-9]{4}[-][a-z0-9]{12})";
         public readonly Regex GUID_REGEX_OBJ = new Regex(GUID_REGEX);
-        public const string SETTING_CLOSETOTRAY = "CloseToTray";
-        public const string SETTING_AUTOSTARTWITHWINDOWS = "AutoStartWithWindows";
-        public const string SETTING_STARTMINIMIZED = "StartMinimized";
-        public const string SETTING_HOTKEYS = "HotKeys";
-        public const string SETTING_FAVOURITEDEVICES = "FavouriteDevices";
-        public const string SETTING_WINDOWWIDTH = "WindowWidth";
-        public const string SETTING_WINDOWHEIGHT = "WindowHeight";
-        public const string SETTING_DISABLEHOTKEYS = "DisableHotKeys";
-        public const string SETTING_ENABLEQUICKSWITCH = "EnableQuickSwitch";
-        public const string SETTING_OPENCONTROLPANELINSTEAD = "OpenControlPanelInsteadOfPreferences";
-        public const string SETTING_CHECKFORUPDATESONSTARTUP = "CheckForUpdatesOnStartup";
-        public const string SETTING_POLLFORUPDATES = "PollForUpdates";
-        public const string SETTING_STARTUPRECORDINGDEVICE = "StartupRecordingDeviceID";
-        public const string SETTING_STARTUPPLAYBACKDEVICE = "StartupPlaybackDeviceID";
-        public const string SETTING_DUALSWITCHMODE = "DualSwitchMode";
-        public const string SETTING_SHOWDISABLEDDEVICES = "ShowDisabledDevices";
-        public const string SETTING_SHOWUNKNOWNDEVICESINHOTKEYLIST = "ShowUnknownDevicesInHotkeyList";
-        public const string SETTING_SHOWDISCONNECTEDDDEVICES = "ShowDisconnectedDevices";
-        public const string SETTING_SHOWDPDEVICEIICONINTRAY = "ShowDPDeviceIconInTray";
-        public const string SETTING_UPDATE_NOTIFICATIONS_ENABLED = "UpdateNotificationsEnabled";
         private readonly ISettingsSource _configWriter;
 
         public ConfigurationSettings(ISettingsSource source)
@@ -40,100 +22,101 @@ namespace FortyOne.AudioSwitcher.Configuration
 
         public Guid StartupRecordingDeviceID
         {
-            get => new Guid(GUID_REGEX_OBJ.Match(_configWriter.Get(SETTING_STARTUPRECORDINGDEVICE)).ToString());
-            set => _configWriter.Set(SETTING_STARTUPRECORDINGDEVICE, value.ToString());
+            get => new Guid(GUID_REGEX_OBJ.Match(_configWriter.Get(Settings.StartupRecordingDeviceID)).ToString());
+            set => _configWriter.Set(Settings.StartupRecordingDeviceID, value);
         }
 
         public Guid StartupPlaybackDeviceID
         {
-            get=> new Guid(GUID_REGEX_OBJ.Match(_configWriter.Get(SETTING_STARTUPPLAYBACKDEVICE)).ToString());
-            set => _configWriter.Set(SETTING_STARTUPPLAYBACKDEVICE, value.ToString());
+            get => new Guid(GUID_REGEX_OBJ.Match(_configWriter.Get(Settings.StartupPlaybackDeviceID)).ToString());
+            set => _configWriter.Set(Settings.StartupPlaybackDeviceID, value);
         }
 
         public int PollForUpdates
         {
-            get => Convert.ToInt32(_configWriter.Get(SETTING_POLLFORUPDATES));
-            set => _configWriter.Set(SETTING_POLLFORUPDATES, value.ToString());
+            get => Convert.ToInt32(_configWriter.Get(Settings.PollForUpdates));
+            set => _configWriter.Set(Settings.PollForUpdates, value);
         }
 
         public bool CheckForUpdatesOnStartup
         {
-            get => Convert.ToBoolean(_configWriter.Get(SETTING_CHECKFORUPDATESONSTARTUP));
-            set => _configWriter.Set(SETTING_CHECKFORUPDATESONSTARTUP, value.ToString());
+            get => Convert.ToBoolean(_configWriter.Get(Settings.CheckForUpdatesOnStartup));
+            set => _configWriter.Set(Settings.CheckForUpdatesOnStartup, value);
         }
 
         public bool DualSwitchMode
         {
-            get => Convert.ToBoolean(_configWriter.Get(SETTING_DUALSWITCHMODE));
-            set => _configWriter.Set(SETTING_DUALSWITCHMODE, value.ToString());
+            get => Convert.ToBoolean(_configWriter.Get(Settings.DualSwitchMode));
+            set => _configWriter.Set(Settings.DualSwitchMode, value);
         }
 
         public bool ShowDisabledDevices
         {
-            get => Convert.ToBoolean(_configWriter.Get(SETTING_SHOWDISABLEDDEVICES));
-            set => _configWriter.Set(SETTING_SHOWDISABLEDDEVICES, value.ToString());
+            get => Convert.ToBoolean(_configWriter.Get(Settings.ShowDisabledDevices));
+            set => _configWriter.Set(Settings.ShowDisabledDevices, value);
         }
 
         public bool ShowUnknownDevicesInHotkeyList
         {
-            get => Convert.ToBoolean(_configWriter.Get(SETTING_SHOWUNKNOWNDEVICESINHOTKEYLIST));
-            set => _configWriter.Set(SETTING_SHOWUNKNOWNDEVICESINHOTKEYLIST, value.ToString());
+            get => Convert.ToBoolean(_configWriter.Get(Settings.ShowUnknownDevicesInHotkeyList));
+            set => _configWriter.Set(Settings.ShowUnknownDevicesInHotkeyList, value);
         }
 
         public bool ShowDisconnectedDevices
         {
-            get => Convert.ToBoolean(_configWriter.Get(SETTING_SHOWDISCONNECTEDDDEVICES));
-            set => _configWriter.Set(SETTING_SHOWDISCONNECTEDDDEVICES, value.ToString());
+            get => Convert.ToBoolean(_configWriter.Get(Settings.ShowDisconnectedDevices));
+            set => _configWriter.Set(Settings.ShowDisconnectedDevices, value);
         }
 
         public bool ShowDPDeviceIconInTray
         {
-            get => Convert.ToBoolean(_configWriter.Get(SETTING_SHOWDPDEVICEIICONINTRAY));
-            set => _configWriter.Set(SETTING_SHOWDPDEVICEIICONINTRAY, value.ToString());
+            get => Convert.ToBoolean(_configWriter.Get(Settings.ShowDPDeviceIconInTray));
+            set => _configWriter.Set(Settings.ShowDPDeviceIconInTray, value);
         }
 
         public int WindowWidth
         {
-            get => Convert.ToInt32(_configWriter.Get(SETTING_WINDOWWIDTH));
-            set => _configWriter.Set(SETTING_WINDOWWIDTH, value.ToString());
+            get => Convert.ToInt32(_configWriter.Get(Settings.WindowWidth));
+            set => _configWriter.Set(Settings.WindowWidth, value);
         }
 
         public int WindowHeight
         {
-            get => Convert.ToInt32(_configWriter.Get(SETTING_WINDOWHEIGHT));
-            set => _configWriter.Set(SETTING_WINDOWHEIGHT, value.ToString());
+            get => Convert.ToInt32(_configWriter.Get(Settings.WindowHeight));
+            set => _configWriter.Set(Settings.WindowHeight, value);
         }
 
         public string FavouriteDevices
         {
-            get => _configWriter.Get(SETTING_FAVOURITEDEVICES);
-            set => _configWriter.Set(SETTING_FAVOURITEDEVICES, value);
+            get => _configWriter.Get(Settings.FavouriteDevices);
+            set => _configWriter.Set(Settings.FavouriteDevices, value);
         }
 
         public string HotKeys
         {
-            get => _configWriter.Get(SETTING_HOTKEYS);
-            set => _configWriter.Set(SETTING_HOTKEYS, value);
+            get => _configWriter.Get(Settings.HotKeys);
+            set => _configWriter.Set(Settings.HotKeys, value);
         }
 
         public bool CloseToTray
         {
-            get => Convert.ToBoolean(_configWriter.Get(SETTING_CLOSETOTRAY));
-            set => _configWriter.Set(SETTING_CLOSETOTRAY, value.ToString());
+            get => Convert.ToBoolean(_configWriter.Get(Settings.CloseToTray));
+            set => _configWriter.Set(Settings.CloseToTray, value);
         }
 
         public bool StartMinimized
         {
-            get => Convert.ToBoolean(_configWriter.Get(SETTING_STARTMINIMIZED));
-            set => _configWriter.Set(SETTING_STARTMINIMIZED, value.ToString());
+            get => Convert.ToBoolean(_configWriter.Get(Settings.StartMinimized));
+            set => _configWriter.Set(Settings.StartMinimized, value);
         }
 
         public bool AutoStartWithWindows
         {
-            get => Convert.ToBoolean(_configWriter.Get(SETTING_AUTOSTARTWITHWINDOWS));
+            get => Convert.ToBoolean(_configWriter.Get(Settings.AutoStartWithWindows));
             set
             {
-                string val = value.ToString(), name = Assembly.GetEntryAssembly().GetName().Name;
+                bool val = value;
+                string name = Assembly.GetEntryAssembly().GetName().Name;
                 try
                 {
                     var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
@@ -144,97 +127,78 @@ namespace FortyOne.AudioSwitcher.Configuration
                 }
                 catch
                 {
-                    val = false.ToString();
+                    val = false;
                 }
-                _configWriter.Set(SETTING_AUTOSTARTWITHWINDOWS, val);
+                _configWriter.Set(Settings.AutoStartWithWindows, val);
             }
         }
 
         public bool DisableHotKeys
         {
-            get => Convert.ToBoolean(_configWriter.Get(SETTING_DISABLEHOTKEYS));
-            set => _configWriter.Set(SETTING_DISABLEHOTKEYS, value.ToString());
+            get => Convert.ToBoolean(_configWriter.Get(Settings.DisableHotKeys));
+            set => _configWriter.Set(Settings.DisableHotKeys, value);
         }
 
         public bool EnableQuickSwitch
         {
-            get => Convert.ToBoolean(_configWriter.Get(SETTING_ENABLEQUICKSWITCH));
-            set => _configWriter.Set(SETTING_ENABLEQUICKSWITCH, value.ToString());
+            get => Convert.ToBoolean(_configWriter.Get(Settings.EnableQuickSwitch));
+            set => _configWriter.Set(Settings.EnableQuickSwitch, value);
         }
 
         public bool OpenControlPanelInstead
         {
-            get => Convert.ToBoolean(_configWriter.Get(SETTING_OPENCONTROLPANELINSTEAD));
-            set => _configWriter.Set(SETTING_OPENCONTROLPANELINSTEAD, value.ToString());
+            get => Convert.ToBoolean(_configWriter.Get(Settings.OpenControlPanelInstead));
+            set => _configWriter.Set(Settings.OpenControlPanelInstead, value);
         }
 
         public bool UpdateNotificationsEnabled
         {
-            get => Convert.ToBoolean(_configWriter.Get(SETTING_UPDATE_NOTIFICATIONS_ENABLED));
-            set => _configWriter.Set(SETTING_UPDATE_NOTIFICATIONS_ENABLED, value.ToString());
+            get => Convert.ToBoolean(_configWriter.Get(Settings.UpdateNotificationsEnabled));
+            set => _configWriter.Set(Settings.UpdateNotificationsEnabled, value);
         }
 
         private void CreateDefaults()
         {
-            if (!_configWriter.Exists(SETTING_CLOSETOTRAY))
-                CloseToTray = false;
-
-            if (!_configWriter.Exists(SETTING_STARTMINIMIZED))
-                StartMinimized = false;
-
-            if (!_configWriter.Exists(SETTING_AUTOSTARTWITHWINDOWS))
-                AutoStartWithWindows = false;
-
-            if (!_configWriter.Exists(SETTING_DISABLEHOTKEYS))
-                DisableHotKeys = false;
-
-            if (!_configWriter.Exists(SETTING_ENABLEQUICKSWITCH))
-                EnableQuickSwitch = false;
-
-            if (!_configWriter.Exists(SETTING_OPENCONTROLPANELINSTEAD))
-                OpenControlPanelInstead = false;
-
-            if (!_configWriter.Exists(SETTING_HOTKEYS))
-                HotKeys = "[]";
-
-            if (!_configWriter.Exists(SETTING_FAVOURITEDEVICES))
-                FavouriteDevices = "[]";
-
-            if (!_configWriter.Exists(SETTING_WINDOWHEIGHT))
-                WindowHeight = 400;
-
-            if (!_configWriter.Exists(SETTING_WINDOWWIDTH))
-                WindowWidth = 300;
-
-            if (!_configWriter.Exists(SETTING_CHECKFORUPDATESONSTARTUP))
-                CheckForUpdatesOnStartup = false;
-            
-            if (!_configWriter.Exists(SETTING_POLLFORUPDATES))
-                PollForUpdates = CheckForUpdatesOnStartup ? 60 : 0;
-
-            if (!_configWriter.Exists(SETTING_STARTUPPLAYBACKDEVICE))
-                StartupPlaybackDeviceID = Guid.Empty;
-
-            if (!_configWriter.Exists(SETTING_STARTUPRECORDINGDEVICE))
-                StartupRecordingDeviceID = Guid.Empty;
-
-            if (!_configWriter.Exists(SETTING_DUALSWITCHMODE))
-                DualSwitchMode = false;
-
-            if (!_configWriter.Exists(SETTING_SHOWDISABLEDDEVICES))
-                ShowDisabledDevices = false;
-
-            if (!_configWriter.Exists(SETTING_SHOWUNKNOWNDEVICESINHOTKEYLIST))
-                ShowUnknownDevicesInHotkeyList = false;
-
-            if (!_configWriter.Exists(SETTING_SHOWDISCONNECTEDDDEVICES))
-                ShowDisconnectedDevices = false;
-
-            if (!_configWriter.Exists(SETTING_SHOWDPDEVICEIICONINTRAY))
-                ShowDPDeviceIconInTray = false;
-
-            if (!_configWriter.Exists(SETTING_UPDATE_NOTIFICATIONS_ENABLED))
-                UpdateNotificationsEnabled = PollForUpdates > 0;
+            if (!_configWriter.Exists(Settings.CloseToTray))
+                _configWriter.Set(Settings.CloseToTray, false);
+            if (!_configWriter.Exists(Settings.StartMinimized))
+                _configWriter.Set(Settings.StartMinimized, false);
+            if (!_configWriter.Exists(Settings.AutoStartWithWindows))
+                _configWriter.Set(Settings.AutoStartWithWindows, false);
+            if (!_configWriter.Exists(Settings.DisableHotKeys))
+                _configWriter.Set(Settings.DisableHotKeys, false);
+            if (!_configWriter.Exists(Settings.EnableQuickSwitch))
+                _configWriter.Set(Settings.EnableQuickSwitch, false);
+            if (!_configWriter.Exists(Settings.OpenControlPanelInstead))
+                _configWriter.Set(Settings.OpenControlPanelInstead, false);
+            if (!_configWriter.Exists(Settings.HotKeys))
+                _configWriter.Set(Settings.HotKeys, "[]");
+            if (!_configWriter.Exists(Settings.FavouriteDevices))
+                _configWriter.Set(Settings.FavouriteDevices, "[]");
+            if (!_configWriter.Exists(Settings.WindowHeight))
+                _configWriter.Set(Settings.WindowHeight, 400);
+            if (!_configWriter.Exists(Settings.WindowWidth))
+                _configWriter.Set(Settings.WindowWidth, 300);
+            if (!_configWriter.Exists(Settings.CheckForUpdatesOnStartup))
+                _configWriter.Set(Settings.CheckForUpdatesOnStartup, false);
+            if (!_configWriter.Exists(Settings.PollForUpdates))
+                _configWriter.Set(Settings.PollForUpdates, CheckForUpdatesOnStartup ? 60 : 0);
+            if (!_configWriter.Exists(Settings.StartupPlaybackDeviceID))
+                _configWriter.Set(Settings.StartupPlaybackDeviceID, Guid.Empty);
+            if (!_configWriter.Exists(Settings.StartupRecordingDeviceID))
+                _configWriter.Set(Settings.StartupRecordingDeviceID, Guid.Empty);
+            if (!_configWriter.Exists(Settings.DualSwitchMode))
+                _configWriter.Set(Settings.DualSwitchMode, false);
+            if (!_configWriter.Exists(Settings.ShowDisabledDevices))
+                _configWriter.Set(Settings.ShowDisabledDevices, false);
+            if (!_configWriter.Exists(Settings.ShowUnknownDevicesInHotkeyList))
+                _configWriter.Set(Settings.ShowUnknownDevicesInHotkeyList, false);
+            if (!_configWriter.Exists(Settings.ShowDisconnectedDevices))
+                _configWriter.Set(Settings.ShowDisconnectedDevices, false);
+            if (!_configWriter.Exists(Settings.ShowDPDeviceIconInTray))
+                _configWriter.Set(Settings.ShowDPDeviceIconInTray, false);
+            if (!_configWriter.Exists(Settings.UpdateNotificationsEnabled))
+                _configWriter.Set(Settings.UpdateNotificationsEnabled, PollForUpdates > 0);
         }
 
         public void LoadFrom(ConfigurationSettings otherSettings)
@@ -257,5 +221,29 @@ namespace FortyOne.AudioSwitcher.Configuration
             WindowHeight = otherSettings.WindowHeight;
             WindowWidth = otherSettings.WindowWidth;
         }
+    }
+
+    public class Settings
+    {
+        public const string CloseToTray = "CloseToTray";
+        public const string AutoStartWithWindows = "AutoStartWithWindows";
+        public const string StartMinimized = "StartMinimized";
+        public const string HotKeys = "HotKeys";
+        public const string FavouriteDevices = "FavouriteDevices";
+        public const string WindowWidth = "WindowWidth";
+        public const string WindowHeight = "WindowHeight";
+        public const string DisableHotKeys = "DisableHotKeys";
+        public const string EnableQuickSwitch = "EnableQuickSwitch";
+        public const string OpenControlPanelInstead = "OpenControlPanelInsteadOfPreferences";
+        public const string CheckForUpdatesOnStartup = "CheckForUpdatesOnStartup";
+        public const string PollForUpdates = "PollForUpdates";
+        public const string StartupRecordingDeviceID = "StartupRecordingDeviceID";
+        public const string StartupPlaybackDeviceID = "StartupPlaybackDeviceID";
+        public const string DualSwitchMode = "DualSwitchMode";
+        public const string ShowDisabledDevices = "ShowDisabledDevices";
+        public const string ShowUnknownDevicesInHotkeyList = "ShowUnknownDevicesInHotkeyList";
+        public const string ShowDisconnectedDevices = "ShowDisconnectedDevices";
+        public const string ShowDPDeviceIconInTray = "ShowDPDeviceIconInTray";
+        public const string UpdateNotificationsEnabled = "UpdateNotificationsEnabled";
     }
 }

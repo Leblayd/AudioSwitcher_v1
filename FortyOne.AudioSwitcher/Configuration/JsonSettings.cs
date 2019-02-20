@@ -7,8 +7,8 @@ namespace FortyOne.AudioSwitcher.Configuration
     public class JsonSettings : ISettingsSource
     {
         private readonly object _mutex = new object();
-        public string Path { get; set; }
         private IDictionary<string, string> _settingsObject;
+        public string Path { get; set; }
 
         public JsonSettings(string path)
         {
@@ -53,11 +53,11 @@ namespace FortyOne.AudioSwitcher.Configuration
             }
         }
 
-        public void Set(string key, string value)
+        public void Set(string key, object value)
         {
             lock (_mutex)
             {
-                _settingsObject[key] = value;
+                _settingsObject[key] = value.ToString();
                 Save();
             }
         }

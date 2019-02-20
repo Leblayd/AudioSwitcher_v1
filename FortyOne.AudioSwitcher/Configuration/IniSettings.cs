@@ -10,10 +10,13 @@
             set => _writer.Path = value;
         }
 
-        public string Get(string key) => _writer.IniReadValue(SECTION_NAME, key);
+        public string Get(string key) =>
+            _writer.IniReadValue(SECTION_NAME, key);
 
-        public void Set(string key, string value) => _writer.IniWriteValue(SECTION_NAME, key, value);
+        public void Set(string key, object value) =>
+            _writer.IniWriteValue(SECTION_NAME, key, value.ToString());
 
-        public bool Exists(string key) => _writer.IniValueExists(SECTION_NAME, key);
+        public bool Exists(string key) =>
+            _writer.IniValueExists(SECTION_NAME, key);
     }
 }
