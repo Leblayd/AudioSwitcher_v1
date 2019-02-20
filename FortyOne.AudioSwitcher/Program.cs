@@ -83,18 +83,16 @@ namespace FortyOne.AudioSwitcher
                 //old json settings
                 var oldJsonSettingsPath = Path.Combine(Directory.GetParent(Assembly.GetEntryAssembly().Location).FullName, Resources.ConfigFile);
 
-                ISettingsSource jsonSource = new JsonSettings();
-                jsonSource.SetFilePath(settingsPath);
+                ISettingsSource jsonSource = new JsonSettings(settingsPath);
 
-                Settings = new ConfigurationSettings(jsonSource);
+                Settings = new ConfigurationSettings(new JsonSettings(settingsPath));
 
                 if (File.Exists(oldJsonSettingsPath))
                 {
                     try
                     {
                         //Load old settings
-                        ISettingsSource oldSource = new JsonSettings();
-                        oldSource.SetFilePath(oldJsonSettingsPath);
+                        ISettingsSource oldSource = new JsonSettings(oldJsonSettingsPath);
 
                         var oldSettings = new ConfigurationSettings(oldSource);
                         Settings.LoadFrom(oldSettings);
@@ -104,8 +102,6 @@ namespace FortyOne.AudioSwitcher
                         File.Delete(oldJsonSettingsPath);
                     }
                 }
-
-                Settings.CreateDefaults();
             }
             catch
             {

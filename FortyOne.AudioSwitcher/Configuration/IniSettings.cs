@@ -4,30 +4,16 @@
     {
         private const string SECTION_NAME = "Settings";
         private readonly ConfigurationWriter _writer = new ConfigurationWriter();
-
-        public void SetFilePath(string path)
+        public string Path
         {
-            _writer.SetPath(path);
+            get => _writer.Path;
+            set => _writer.Path = value;
         }
 
-        public void Load()
-        {
-            //Do nothing
-        }
+        public string Get(string key) => _writer.IniReadValue(SECTION_NAME, key);
 
-        public void Save()
-        {
-            //Do nothing
-        }
+        public void Set(string key, string value) => _writer.IniWriteValue(SECTION_NAME, key, value);
 
-        public string Get(string key)
-        {
-            return _writer.IniReadValue(SECTION_NAME, key);
-        }
-
-        public void Set(string key, string value)
-        {
-            _writer.IniWriteValue(SECTION_NAME, key, value);
-        }
+        public bool Exists(string key) => _writer.IniValueExists(SECTION_NAME, key);
     }
 }

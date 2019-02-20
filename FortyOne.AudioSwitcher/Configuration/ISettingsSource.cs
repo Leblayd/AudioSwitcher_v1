@@ -2,10 +2,9 @@
 {
     public interface ISettingsSource
     {
-        void SetFilePath(string path);
-        void Load();
-        void Save();
+        string Path { get; set; }
         string Get(string key);
+        bool Exists(string key);
         void Set(string key, string value);
     }
 }

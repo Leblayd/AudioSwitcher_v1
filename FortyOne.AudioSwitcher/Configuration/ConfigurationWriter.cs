@@ -9,6 +9,15 @@ namespace FortyOne.AudioSwitcher.Configuration
     {
         private readonly object _mutex = new object();
         private string _path;
+        public string Path
+        {
+            get => _path;
+            set { 
+                if (!File.Exists(value))
+                    File.Create(value).Close();
+                _path = value;
+            }
+        }
 
         [DllImport("kernel32")]
         private static extern long WritePrivateProfileString(string section,
@@ -28,31 +37,20 @@ namespace FortyOne.AudioSwitcher.Configuration
             uint nSize,
             string lpFileName);
 
-        public void SetPath(string iniPath)
-        {
-            if (!File.Exists(iniPath))
-                File.Create(iniPath).Close();
-
-            _path = iniPath;
-        }
-
         /// <summary>
         ///     Write Data to the INI File
         /// </summary>
         /// <PARAM name="Section"></PARAM>
-        /// Section name
         /// <PARAM name="Key"></PARAM>
-        /// Key Name
         /// <PARAM name="Value"></PARAM>
-        /// Value Name
         public void IniWriteValue(string Section, string Key, string Value)
         {
             lock (_mutex)
             {
-                if (!File.Exists(_path))
-                    File.Create(_path).Close();
+                if (!File.Exists(Path))
+                    File.Create(Path).Close();
 
-                WritePrivateProfileString(Section, Key, Value, _path);
+                WritePrivateProfileString(Section, Key, Value, Path);
             }
         }
 
@@ -61,19 +59,35 @@ namespace FortyOne.AudioSwitcher.Configuration
         /// </summary>
         /// <PARAM name="Section"></PARAM>
         /// <PARAM name="Key"></PARAM>
-        /// <PARAM name="Path"></PARAM>
-        /// <returns></returns>
+        /// <returns>Value of the key</returns>
         public string IniReadValue(string Section, string Key)
         {
             lock (_mutex)
             {
                 var sb = new StringBuilder(500);
-                GetPrivateProfileString(Section, Key, "", sb, (uint) sb.Capacity, _path);
+                GetPrivateProfileString(Section, Key, "", sb, (uint) sb.Capacity, Path);
 
                 if (string.IsNullOrEmpty(sb.ToString()))
                     throw new KeyNotFoundException(Section + " - " + Key);
 
                 return sb.ToString();
+            }
+        }
+
+        /// <summary>
+        ///     Check whether the key-value pair exists in the Ini File
+        /// </summary>
+        /// <PARAM name="Section"></PARAM>
+        /// <PARAM name="Key"></PARAM>
+        /// <returns>True if the key exists, false otherwise</returns>
+        public bool IniValueExists(string Section, string Key)
+        {
+            lock (_mutex)
+            {
+                var sb = new StringBuilder(500);
+                GetPrivateProfileString(Section, Key, "", sb, (uint)sb.Capacity, Path);
+
+                return string.IsNullOrEmpty(sb.ToString());
             }
         }
     }

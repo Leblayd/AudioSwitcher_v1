@@ -7,27 +7,23 @@ namespace FortyOne.AudioSwitcher.Configuration
     public class JsonSettings : ISettingsSource
     {
         private readonly object _mutex = new object();
-        private string _path;
+        public string Path { get; set; }
         private IDictionary<string, string> _settingsObject;
 
-        public JsonSettings()
+        public JsonSettings(string path)
         {
-            _settingsObject = new Dictionary<string, string>();
+            Path = path;
+            Load();
         }
 
-        public void SetFilePath(string path)
-        {
-            _path = path;
-        }
-
-        public void Load()
+        private void Load()
         {
             lock (_mutex)
             {
                 try
                 {
-                    if (File.Exists(_path))
-                        _settingsObject = JSON.ToObject<Dictionary<string, string>>(File.ReadAllText(_path));
+                    if (File.Exists(Path))
+                        _settingsObject = JSON.ToObject<Dictionary<string, string>>(File.ReadAllText(Path));
                 }
                 catch
                 {
@@ -36,12 +32,12 @@ namespace FortyOne.AudioSwitcher.Configuration
             }
         }
 
-        public void Save()
+        private void Save()
         {
             try
             {
                 //Write the result to file
-                File.WriteAllText(_path, JSON.Beautify(JSON.ToJSON(_settingsObject)));
+                File.WriteAllText(Path, JSON.Beautify(JSON.ToJSON(_settingsObject)));
             }
             catch
             {
@@ -63,6 +59,14 @@ namespace FortyOne.AudioSwitcher.Configuration
             {
                 _settingsObject[key] = value;
                 Save();
+            }
+        }
+
+        public bool Exists(string key)
+        {
+            lock (_mutex)
+            {
+                return _settingsObject.ContainsKey(key);
             }
         }
     }
