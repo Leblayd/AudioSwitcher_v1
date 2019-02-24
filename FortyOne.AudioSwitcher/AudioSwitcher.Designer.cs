@@ -104,7 +104,8 @@
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.updateAvailableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.volumeControlMenuItem = new Controls.VolumeControlMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.memoryCleaner = new System.Windows.Forms.Timer(this.components);
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -931,6 +932,7 @@
 			this.notifyIconStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripSeparator1,
             this.preferencesToolStripMenuItem,
+            this.volumeControlMenuItem,
             this.updateAvailableToolStripMenuItem,
             this.exitToolStripMenuItem});
 			this.notifyIconStrip.Name = "notifyIconStrip";
@@ -948,25 +950,32 @@
 			this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
 			this.preferencesToolStripMenuItem.Text = "Open Preferences";
 			this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
-			// 
-			// updateAvailableToolStripMenuItem
-			// 
-			this.updateAvailableToolStripMenuItem.BackColor = System.Drawing.Color.LightGoldenrodYellow;
+            // 
+            // updateAvailableToolStripMenuItem
+            // 
+            this.updateAvailableToolStripMenuItem.BackColor = System.Drawing.Color.LightGoldenrodYellow;
 			this.updateAvailableToolStripMenuItem.Name = "updateAvailableToolStripMenuItem";
 			this.updateAvailableToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
 			this.updateAvailableToolStripMenuItem.Text = "New Update Available!";
-			this.updateAvailableToolStripMenuItem.Click += new System.EventHandler(this.updateAvailableToolStripMenuItem_Click);
-			// 
-			// exitToolStripMenuItem
-			// 
-			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.updateAvailableToolStripMenuItem.Click += new System.EventHandler(this.updateAvailableToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
 			this.exitToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
 			this.exitToolStripMenuItem.Text = "Exit";
 			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-			// 
-			// memoryCleaner
-			// 
-			this.memoryCleaner.Interval = 3600000;
+            // 
+            // volumeControlMenuItem
+            // 
+            this.volumeControlMenuItem.Name = "volumeControlMenuItem";
+            this.volumeControlMenuItem.Size = new System.Drawing.Size(293, 22);
+            this.volumeControlMenuItem.ValueChanged += volumeControl_ValueChanged;
+            this.volumeControlMenuItem.Value = (int)AudioDeviceManager.Controller.DefaultPlaybackDevice.Volume;
+            // 
+            // memoryCleaner
+            // 
+            this.memoryCleaner.Interval = 3600000;
 			this.memoryCleaner.Tick += new System.EventHandler(this.memoryCleaner_Tick);
 			// 
 			// statusStrip1
@@ -1133,6 +1142,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox chkShowDPDeviceIconInTray;
         private System.Windows.Forms.ToolStripMenuItem preferencesToolStripMenuItem;
+        private Controls.VolumeControlMenuItem volumeControlMenuItem;
         private System.Windows.Forms.Button btnClearAll;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel statusLabelUpdate;

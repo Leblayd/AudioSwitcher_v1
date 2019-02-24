@@ -64,6 +64,8 @@ namespace FortyOne.AudioSwitcher
         private bool _updateAvailable;
         public bool DisableHotKeyFunction = false;
 
+        public IDevice DefaultPlaybackDevice { get; private set; }
+
         public AudioSwitcher()
         {
             InitializeComponent();
@@ -829,6 +831,7 @@ namespace FortyOne.AudioSwitcher
                     if (ad.IsDefaultDevice)
                     {
                         li.SubItems.Add(new ListViewItem.ListViewSubItem(li, "Default Device"));
+                        DefaultPlaybackDevice = ad;
                         li.EnsureVisible();
                     }
                     else if (ad.IsDefaultCommunicationsDevice)
@@ -1108,6 +1111,8 @@ namespace FortyOne.AudioSwitcher
 
             notifyIconStrip.Items.Add(exitToolStripMenuItem);
 
+            notifyIconStrip.Items.Add(volumeControlMenuItem);
+
             var defaultDevice = AudioDeviceManager.Controller.DefaultPlaybackDevice;
             var notifyText = "Audio Switcher";
 
@@ -1334,6 +1339,11 @@ namespace FortyOne.AudioSwitcher
         {
             //RefreshPlaybackDevices();
             //RefreshRecordingDevices();
+        }
+
+        private void volumeControl_ValueChanged(object sender, int value)
+        {
+            AudioDeviceManager.Controller.DefaultPlaybackDevice.SetVolumeAsync(value);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)

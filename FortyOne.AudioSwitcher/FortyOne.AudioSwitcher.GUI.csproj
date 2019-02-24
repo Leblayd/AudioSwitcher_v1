@@ -131,6 +131,9 @@
     <Compile Include="Configuration\IniSettings.cs" />
     <Compile Include="Configuration\ISettingsSource.cs" />
     <Compile Include="Configuration\JsonSettings.cs" />
+    <Compile Include="Controls\VolumeControlMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ExceptionDisplayForm.cs">
       <SubType>Form</SubType>
     </Compile>
