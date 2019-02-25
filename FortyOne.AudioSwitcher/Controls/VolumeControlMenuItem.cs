@@ -1,5 +1,4 @@
-﻿using AudioSwitcher.AudioApi;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
@@ -9,33 +8,61 @@ namespace FortyOne.AudioSwitcher.Controls
     [ToolStripItemDesignerAvailability(ToolStripItemDesignerAvailability.MenuStrip | ToolStripItemDesignerAvailability.ContextMenuStrip)]
     public class VolumeControlMenuItem : ToolStripControlHost
     {
-        public GroupBox GroupBox { get => Control as GroupBox; }
+        private GroupBox GroupBox => Control as GroupBox;
         private NumericUpDown TextBox { get; }
         private TrackBar TrackBar { get; }
 
-        public int Value {
-            get => TrackBar.Value;
-            set
-            {
-                OnValueChanged(value);
-            }
+        #region Scroll
+
+        public int ScrollAmount { get; set; } = 5;
+        
+        public delegate void ScrollEventHandler(object sender, bool isUp);
+        public event ScrollEventHandler Scroll;
+        public void OnScroll(bool up)
+        {
+            Scroll?.Invoke(this, up);
         }
 
+        private void MenuItem_Scroll(object sender, bool up)
+        {
+            Value += up ? ScrollAmount : -ScrollAmount;
+        }
+
+        #endregion
+
+        #region Value
+        
+        public int Value {
+            get => TrackBar.Value;
+            set => OnValueChanged(value);
+        }
+        
         public delegate void ValueEventHandler(object sender, int value);
         public event ValueEventHandler ValueChanged;
-        private void OnValueChanged(int value) => ValueChanged?.Invoke(this, value);
+        private void OnValueChanged(int value)
+        {
+            ValueChanged?.Invoke(this, value);
+        }
+        
+        private void SetValues(object sender, int value)
+        {
+            TextBox.Value = value;
+            TrackBar.Value = value;
+        }
 
+        #endregion
+        
         public VolumeControlMenuItem() : base(new GroupBox())
         {
             int boxWidth = Width * 2 / 10;
             int barWidth = Width - boxWidth;
             
-            TextBox = new NumericUpDown()
+            TextBox = new NumericUpDown
             {
                 Width = boxWidth
             };
 
-            TrackBar = new TrackBar()
+            TrackBar = new TrackBar
             {
                 Minimum = 0,
                 Maximum = 100,
@@ -50,12 +77,7 @@ namespace FortyOne.AudioSwitcher.Controls
             TextBox.ValueChanged += NumericUpDown_ValueChanged;
             TrackBar.ValueChanged += TrackBar_ValueChanged;
             ValueChanged += SetValues;
-        }
-
-        private void SetValues(object sender, int value)
-        {
-            TextBox.Value = value;
-            TrackBar.Value = value;
+            Scroll += MenuItem_Scroll;
         }
 
         private void TrackBar_ValueChanged(object sender, EventArgs e)

@@ -1112,11 +1112,13 @@ namespace FortyOne.AudioSwitcher
             notifyIconStrip.Items.Add(exitToolStripMenuItem);
 
             notifyIconStrip.Items.Add(volumeControlMenuItem);
-
+            
+            notifyIconStrip.MouseWheel += NotifyIconStrip_MouseWheel;
+            
             var defaultDevice = AudioDeviceManager.Controller.DefaultPlaybackDevice;
             var notifyText = "Audio Switcher";
 
-            //The maximum length of the noitfy text is 64 characters. This keeps it under
+            //The maximum length of the notify text is 64 characters. This keeps it under
             if (defaultDevice != null)
             {
                 var devName = defaultDevice.FullName ?? defaultDevice.Name ?? notifyText;
@@ -1130,6 +1132,14 @@ namespace FortyOne.AudioSwitcher
             notifyIcon1.Text = notifyText;
 
             RefreshTrayIcon();
+        }
+
+        private void NotifyIconStrip_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if (!(e is HandledMouseEventArgs args) || args.Handled) return;
+                
+            volumeControlMenuItem.OnScroll(args.Delta > 0);
+            args.Handled = true;
         }
 
         private void RefreshTrayIcon()
