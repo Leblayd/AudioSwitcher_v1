@@ -776,6 +776,10 @@ namespace FortyOne.AudioSwitcher
             chkShowDisconnectedDevices.Checked = Program.Settings.ShowDisconnectedDevices;
             chkShowDPDeviceIconInTray.Checked = Program.Settings.ShowDPDeviceIconInTray;
 
+            chkVolumeControlShow.Checked = Program.Settings.VolumeControlShow;
+            chkVolumeControlScrollInEntireMenu.Checked = Program.Settings.VolumeControlScrollInEntireMenu;
+            nupVolumeControlDivisibleByNumber.Value = Program.Settings.VolumeControlDivisibleByNumber;
+
             Width = Program.Settings.WindowWidth;
             Height = Program.Settings.WindowHeight;
 
@@ -1111,9 +1115,13 @@ namespace FortyOne.AudioSwitcher
 
             notifyIconStrip.Items.Add(exitToolStripMenuItem);
 
-            notifyIconStrip.Items.Add(volumeControlMenuItem);
-            
-            notifyIconStrip.MouseWheel += NotifyIconStrip_MouseWheel;
+            if (Program.Settings.VolumeControlShow)
+            {
+                notifyIconStrip.Items.Add(volumeControlMenuItem);
+                
+                if (Program.Settings.VolumeControlScrollInEntireMenu)
+                    notifyIconStrip.MouseWheel += NotifyIconStrip_MouseWheel;
+            }
             
             var defaultDevice = AudioDeviceManager.Controller.DefaultPlaybackDevice;
             var notifyText = "Audio Switcher";
@@ -1511,5 +1519,22 @@ namespace FortyOne.AudioSwitcher
 				}));
 			}
 		}
-	}
+
+        private void chkVolumeControlShow_CheckedChanged(object sender, EventArgs e)
+        {
+            Program.Settings.VolumeControlShow = chkVolumeControlShow.Checked;
+            // TODO refresh contextStrip
+        }
+
+        private void chkVolumeControlScrollInEntireMenu_CheckedChanged(object sender, EventArgs e)
+        {
+            Program.Settings.VolumeControlScrollInEntireMenu = chkVolumeControlScrollInEntireMenu.Checked;
+            // TODO refresh contextStrip
+        }
+
+        private void nupVolumeControlDivisibleByNumber_ValueChanged(object sender, EventArgs e)
+        {
+            Program.Settings.VolumeControlDivisibleByNumber = (int)nupVolumeControlDivisibleByNumber.Value;
+        }
+    }
 }

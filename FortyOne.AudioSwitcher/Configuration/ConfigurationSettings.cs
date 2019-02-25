@@ -157,6 +157,24 @@ namespace FortyOne.AudioSwitcher.Configuration
             set => _configWriter.Set(Settings.UpdateNotificationsEnabled, value);
         }
 
+        public bool VolumeControlShow
+        {
+            get => Convert.ToBoolean(_configWriter.Get(Settings.VolumeControlShow));
+            set => _configWriter.Set(Settings.VolumeControlShow, value);
+        }
+        
+        public bool VolumeControlScrollInEntireMenu
+        {
+            get => Convert.ToBoolean(_configWriter.Get(Settings.VolumeControlScrollInEntireMenu));
+            set => _configWriter.Set(Settings.VolumeControlScrollInEntireMenu, value);
+        }
+        
+        public int VolumeControlDivisibleByNumber
+        {
+            get => Convert.ToInt32(_configWriter.Get(Settings.VolumeControlDivisibleByNumber));
+            set => _configWriter.Set(Settings.VolumeControlDivisibleByNumber, value);
+        }
+
         private void CreateDefaults()
         {
             if (!_configWriter.Exists(Settings.CloseToTray))
@@ -199,6 +217,12 @@ namespace FortyOne.AudioSwitcher.Configuration
                 _configWriter.Set(Settings.ShowDPDeviceIconInTray, false);
             if (!_configWriter.Exists(Settings.UpdateNotificationsEnabled))
                 _configWriter.Set(Settings.UpdateNotificationsEnabled, PollForUpdates > 0);
+            if (!_configWriter.Exists(Settings.VolumeControlShow))
+                _configWriter.Set(Settings.VolumeControlShow, true);
+            if (!_configWriter.Exists(Settings.VolumeControlScrollInEntireMenu))
+                _configWriter.Set(Settings.VolumeControlScrollInEntireMenu, false);
+            if (!_configWriter.Exists(Settings.VolumeControlDivisibleByNumber))
+                _configWriter.Set(Settings.VolumeControlDivisibleByNumber, 0);
         }
 
         public void LoadFrom(ConfigurationSettings otherSettings)
@@ -223,7 +247,7 @@ namespace FortyOne.AudioSwitcher.Configuration
         }
     }
 
-    public class Settings
+    public static class Settings
     {
         public const string CloseToTray = "CloseToTray";
         public const string AutoStartWithWindows = "AutoStartWithWindows";
@@ -245,5 +269,8 @@ namespace FortyOne.AudioSwitcher.Configuration
         public const string ShowDisconnectedDevices = "ShowDisconnectedDevices";
         public const string ShowDPDeviceIconInTray = "ShowDPDeviceIconInTray";
         public const string UpdateNotificationsEnabled = "UpdateNotificationsEnabled";
+        public const string VolumeControlShow = "VolumeControlShow";
+        public const string VolumeControlScrollInEntireMenu = "VolumeControlScrollInEntireMenu";
+        public const string VolumeControlDivisibleByNumber = "VolumeControlDivisibleByNumber";
     }
 }

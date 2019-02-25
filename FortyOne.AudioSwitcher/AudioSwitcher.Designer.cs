@@ -74,6 +74,9 @@
 			this.chkDisableHotKeys = new System.Windows.Forms.CheckBox();
 			this.chkQuickSwitch = new System.Windows.Forms.CheckBox();
             this.chkOpenControlPanelOnDouble = new System.Windows.Forms.CheckBox();
+	        this.chkVolumeControlShow = new System.Windows.Forms.CheckBox();
+	        this.chkVolumeControlScrollInEntireMenu = new System.Windows.Forms.CheckBox();
+	        this.nupVolumeControlDivisibleByNumber = new System.Windows.Forms.NumericUpDown();
 			this.tapHotkeys = new System.Windows.Forms.TabPage();
 			this.btnClearAll = new System.Windows.Forms.Button();
 			this.btnDeleteHotKey = new System.Windows.Forms.Button();
@@ -415,6 +418,9 @@
 			this.tapSettings.Controls.Add(this.chkDisableHotKeys);
 			this.tapSettings.Controls.Add(this.chkQuickSwitch);
             this.tapSettings.Controls.Add(this.chkOpenControlPanelOnDouble);
+            this.tapSettings.Controls.Add(this.chkVolumeControlShow);
+            this.tapSettings.Controls.Add(this.chkVolumeControlScrollInEntireMenu);
+            this.tapSettings.Controls.Add(this.nupVolumeControlDivisibleByNumber);
 			this.tapSettings.Location = new System.Drawing.Point(4, 22);
 			this.tapSettings.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
 			this.tapSettings.Name = "tapSettings";
@@ -586,8 +592,46 @@
             this.chkOpenControlPanelOnDouble.Text = "Open Control Panel Instead";
             this.toolTip1.SetToolTip(this.chkOpenControlPanelOnDouble, "When double-clicking the tray icon, open Control Panel instead of Preferences");
             this.chkOpenControlPanelOnDouble.UseVisualStyleBackColor = true;
-            this.chkOpenControlPanelOnDouble.CheckedChanged += new System.EventHandler(this.chkOpenControlPanelOnDouble_CheckedChanged);
-
+            this.chkOpenControlPanelOnDouble.CheckedChanged += this.chkOpenControlPanelOnDouble_CheckedChanged;
+	        //
+	        // chkVolumeControlShow
+	        //
+	        this.chkVolumeControlShow.AutoSize = true;
+	        this.chkVolumeControlShow.Location = new System.Drawing.Point(14, 292);
+	        this.chkVolumeControlShow.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+	        this.chkVolumeControlShow.Name = "chkVolumeControlShow";
+	        this.chkVolumeControlShow.Size = new System.Drawing.Size(174, 17);
+	        this.chkVolumeControlShow.TabIndex = 18;
+	        this.chkVolumeControlShow.Text = "Show Volume Control in Context Menu";
+	        this.toolTip1.SetToolTip(this.chkVolumeControlShow, "Display a menu that can be used to control the volume in the context menu of the tray icon");
+	        this.chkVolumeControlShow.UseVisualStyleBackColor = true;
+	        this.chkVolumeControlShow.CheckedChanged += this.chkVolumeControlShow_CheckedChanged;
+	        //
+	        // chkVolumeControlScrollInEntireMenu
+	        //
+	        this.chkVolumeControlScrollInEntireMenu.AutoSize = true;
+	        this.chkVolumeControlScrollInEntireMenu.Location = new System.Drawing.Point(14, 315);
+	        this.chkVolumeControlScrollInEntireMenu.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+	        this.chkVolumeControlScrollInEntireMenu.Name = "chkVolumeControlScrollInEntireMenu";
+	        this.chkVolumeControlScrollInEntireMenu.Size = new System.Drawing.Size(174, 17);
+	        this.chkVolumeControlScrollInEntireMenu.TabIndex = 19;
+	        this.chkVolumeControlScrollInEntireMenu.Text = "Adjust volume by scrolling menu";
+	        this.toolTip1.SetToolTip(this.chkVolumeControlScrollInEntireMenu, "Scrolling in the context menu - not just the slider itself - will adjust the volume");
+	        this.chkVolumeControlScrollInEntireMenu.UseVisualStyleBackColor = true;
+	        this.chkVolumeControlScrollInEntireMenu.CheckedChanged += this.chkVolumeControlScrollInEntireMenu_CheckedChanged;
+	        //
+	        // nupVolumeControlDivisibleByNumber
+	        //
+	        this.nupVolumeControlDivisibleByNumber.AutoSize = true;
+	        this.nupVolumeControlDivisibleByNumber.Location = new System.Drawing.Point(14, 338);
+	        this.nupVolumeControlDivisibleByNumber.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+	        this.nupVolumeControlDivisibleByNumber.Name = "nupVolumeControlDivisibleByNumber";
+	        this.nupVolumeControlDivisibleByNumber.Size = new System.Drawing.Size(27, 17);
+	        this.nupVolumeControlDivisibleByNumber.TabIndex = 20;
+	        this.nupVolumeControlDivisibleByNumber.Text = "Adjust volume by scrolling menu";
+	        // TODO add another check to turn this option on/off
+	        this.toolTip1.SetToolTip(this.nupVolumeControlDivisibleByNumber, "When changing the volume, it will automatically adjust to a number divisible by this one.\r\nTo disable leave it at 0.");
+	        this.nupVolumeControlDivisibleByNumber.ValueChanged += this.nupVolumeControlDivisibleByNumber_ValueChanged;
             // 
             // tapHotkeys
             // 
@@ -1106,6 +1150,9 @@
         private System.Windows.Forms.CheckBox chkDisableHotKeys;
         private System.Windows.Forms.CheckBox chkQuickSwitch;
         private System.Windows.Forms.CheckBox chkOpenControlPanelOnDouble;
+        private System.Windows.Forms.CheckBox chkVolumeControlShow;
+        private System.Windows.Forms.CheckBox chkVolumeControlScrollInEntireMenu;
+        private System.Windows.Forms.NumericUpDown nupVolumeControlDivisibleByNumber;
         private System.Windows.Forms.Button btnTestError;
         private System.Windows.Forms.ListView listBoxPlayback;
         private System.Windows.Forms.ColumnHeader columnHeader1;

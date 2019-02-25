@@ -68,7 +68,7 @@ namespace FortyOne.AudioSwitcher.Controls
                 Maximum = 100,
                 Width = barWidth,
                 Location = new Point(boxWidth),
-                TickStyle = TickStyle.None
+                TickFrequency = 10
             };
 
             GroupBox.Controls.Add(TextBox);
