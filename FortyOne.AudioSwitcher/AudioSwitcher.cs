@@ -1118,9 +1118,11 @@ namespace FortyOne.AudioSwitcher
             if (Program.Settings.VolumeControlShow)
             {
                 notifyIconStrip.Items.Add(volumeControlMenuItem);
-                
-                if (Program.Settings.VolumeControlScrollInEntireMenu)
+
+                notifyIconStrip.MouseWheel -= NotifyIconStrip_MouseWheel;
+                if (Program.Settings.VolumeControlScrollInEntireMenu) {
                     notifyIconStrip.MouseWheel += NotifyIconStrip_MouseWheel;
+                }
             }
             
             var defaultDevice = AudioDeviceManager.Controller.DefaultPlaybackDevice;
@@ -1522,14 +1524,18 @@ namespace FortyOne.AudioSwitcher
 
         private void chkVolumeControlShow_CheckedChanged(object sender, EventArgs e)
         {
+            if (Program.Settings.VolumeControlShow == chkVolumeControlShow.Checked) return;
+            
             Program.Settings.VolumeControlShow = chkVolumeControlShow.Checked;
-            // TODO refresh contextStrip
+            RefreshNotifyIconItems();
         }
 
         private void chkVolumeControlScrollInEntireMenu_CheckedChanged(object sender, EventArgs e)
         {
+            if (Program.Settings.VolumeControlScrollInEntireMenu == chkVolumeControlScrollInEntireMenu.Checked) return;
+            
             Program.Settings.VolumeControlScrollInEntireMenu = chkVolumeControlScrollInEntireMenu.Checked;
-            // TODO refresh contextStrip
+            RefreshNotifyIconItems();
         }
 
         private void nupVolumeControlDivisibleByNumber_ValueChanged(object sender, EventArgs e)
