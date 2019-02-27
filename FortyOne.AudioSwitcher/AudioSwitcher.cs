@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -1148,7 +1148,7 @@ namespace FortyOne.AudioSwitcher
         {
             if (!(e is HandledMouseEventArgs args) || args.Handled) return;
                 
-            volumeControlMenuItem.OnScroll(args.Delta > 0);
+            volumeControlMenuItem.OnScroll(e);
             args.Handled = true;
         }
 
@@ -1361,9 +1361,9 @@ namespace FortyOne.AudioSwitcher
             //RefreshRecordingDevices();
         }
 
-        private void volumeControl_ValueChanged(object sender, int value)
+        private void volumeControl_ValueChanged(object sender, EventArgs e)
         {
-            AudioDeviceManager.Controller.DefaultPlaybackDevice.SetVolumeAsync(value);
+            AudioDeviceManager.Controller.DefaultPlaybackDevice.SetVolumeAsync(volumeControlMenuItem.Value);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)

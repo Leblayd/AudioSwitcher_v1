@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
@@ -14,40 +14,33 @@ namespace FortyOne.AudioSwitcher.Controls
 
         #region Scroll
 
-        public int ScrollAmount { get; set; } = 5;
+        public int Change { get; set; }
         
-        public delegate void ScrollEventHandler(object sender, bool isUp);
-        public event ScrollEventHandler Scroll;
-        public void OnScroll(bool up)
+        public event MouseEventHandler Scroll;
+        public void OnScroll(MouseEventArgs args)
         {
-            Scroll?.Invoke(this, up);
+            Scroll?.Invoke(this, args);
         }
 
-        private void MenuItem_Scroll(object sender, bool up)
+        private void MenuItem_Scroll(object sender, MouseEventArgs args)
         {
-            Value += up ? ScrollAmount : -ScrollAmount;
+            Value += args.Delta > 0 ? Change : -Change;
         }
 
         #endregion
 
         #region Value
         
-        public int Value {
+        public int Value
+        {
             get => TrackBar.Value;
-            set => OnValueChanged(value);
+            set => TrackBar.Value = value;
         }
         
-        public delegate void ValueEventHandler(object sender, int value);
-        public event ValueEventHandler ValueChanged;
-        private void OnValueChanged(int value)
+        public event EventHandler ValueChanged;
+        private void OnValueChanged()
         {
-            ValueChanged?.Invoke(this, value);
-        }
-        
-        private void SetValues(object sender, int value)
-        {
-            TextBox.Value = value;
-            TrackBar.Value = value;
+            ValueChanged?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
@@ -76,18 +69,19 @@ namespace FortyOne.AudioSwitcher.Controls
 
             TextBox.ValueChanged += NumericUpDown_ValueChanged;
             TrackBar.ValueChanged += TrackBar_ValueChanged;
-            ValueChanged += SetValues;
             Scroll += MenuItem_Scroll;
         }
 
         private void TrackBar_ValueChanged(object sender, EventArgs e)
         {
-            OnValueChanged(((TrackBar)sender).Value);
+            TextBox.Value = TrackBar.Value;
+            OnValueChanged();
         }
 
         private void NumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            OnValueChanged((int)((NumericUpDown)sender).Value);
+            TrackBar.Value = (int)TextBox.Value;
+            OnValueChanged();
         }
     }
 }
