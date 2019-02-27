@@ -629,8 +629,9 @@
 	        this.nupVolumeControlDivisibleByNumber.Size = new System.Drawing.Size(27, 17);
 	        this.nupVolumeControlDivisibleByNumber.TabIndex = 20;
 	        this.nupVolumeControlDivisibleByNumber.Text = "Adjust volume by scrolling menu";
-	        // TODO add another check to turn this option on/off
-	        this.toolTip1.SetToolTip(this.nupVolumeControlDivisibleByNumber, "When changing the volume, it will automatically adjust to a number divisible by this one.\r\nTo disable leave it at 0.");
+	        this.nupVolumeControlDivisibleByNumber.Minimum = 1;
+	        this.nupVolumeControlDivisibleByNumber.Maximum = 100;
+	        this.toolTip1.SetToolTip(this.nupVolumeControlDivisibleByNumber, "Increment the volume by this amount when adjusting the bar of the box");
 	        this.nupVolumeControlDivisibleByNumber.ValueChanged += this.nupVolumeControlDivisibleByNumber_ValueChanged;
             // 
             // tapHotkeys
@@ -1016,6 +1017,7 @@
             this.volumeControlMenuItem.Size = new System.Drawing.Size(293, 22);
             this.volumeControlMenuItem.ValueChanged += volumeControl_ValueChanged;
             this.volumeControlMenuItem.Value = (int)AudioDeviceManager.Controller.DefaultPlaybackDevice.Volume;
+            this.volumeControlMenuItem.Change = Program.Settings.VolumeControlDivisibleByNumber;
             // 
             // memoryCleaner
             // 

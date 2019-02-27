@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -1148,7 +1148,7 @@ namespace FortyOne.AudioSwitcher
         {
             if (!(e is HandledMouseEventArgs args) || args.Handled) return;
                 
-            volumeControlMenuItem.OnScroll(e);
+            volumeControlMenuItem.OnScroll(args);
             args.Handled = true;
         }
 
@@ -1540,7 +1540,9 @@ namespace FortyOne.AudioSwitcher
 
         private void nupVolumeControlDivisibleByNumber_ValueChanged(object sender, EventArgs e)
         {
-            Program.Settings.VolumeControlDivisibleByNumber = (int)nupVolumeControlDivisibleByNumber.Value;
+            ushort value = (ushort) nupVolumeControlDivisibleByNumber.Value;
+            Program.Settings.VolumeControlDivisibleByNumber = value;
+            volumeControlMenuItem.Change = value;
         }
     }
 }
