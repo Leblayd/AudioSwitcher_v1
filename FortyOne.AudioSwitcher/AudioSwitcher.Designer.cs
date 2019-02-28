@@ -1,4 +1,9 @@
-﻿namespace FortyOne.AudioSwitcher
+﻿using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace FortyOne.AudioSwitcher
 {
     partial class AudioSwitcher
     {
@@ -61,6 +66,7 @@
 			this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.tapSettings = new System.Windows.Forms.TabPage();
+			this.volumeSettings = new System.Windows.Forms.TabPage();
 			this.chkShowUnknownDevicesInHotkeyList = new System.Windows.Forms.CheckBox();
 			this.chkNotifyUpdates = new System.Windows.Forms.CheckBox();
 			this.chkShowDPDeviceIconInTray = new System.Windows.Forms.CheckBox();
@@ -123,6 +129,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.openControlPanelRecording)).BeginInit();
 			this.recordingStrip.SuspendLayout();
 			this.tapSettings.SuspendLayout();
+			this.volumeSettings.SuspendLayout();
 			this.tapHotkeys.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.hotKeyBindingSource)).BeginInit();
@@ -191,6 +198,7 @@
 			this.tabControl1.Controls.Add(this.tapPlayback);
 			this.tabControl1.Controls.Add(this.tapRecording);
 			this.tabControl1.Controls.Add(this.tapSettings);
+			this.tabControl1.Controls.Add(this.volumeSettings);
 			this.tabControl1.Controls.Add(this.tapHotkeys);
 			this.tabControl1.Controls.Add(this.tapAbout);
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -418,9 +426,6 @@
 			this.tapSettings.Controls.Add(this.chkDisableHotKeys);
 			this.tapSettings.Controls.Add(this.chkQuickSwitch);
             this.tapSettings.Controls.Add(this.chkOpenControlPanelOnDouble);
-            this.tapSettings.Controls.Add(this.chkVolumeControlShow);
-            this.tapSettings.Controls.Add(this.chkVolumeControlScrollInEntireMenu);
-            this.tapSettings.Controls.Add(this.nupVolumeControlDivisibleByNumber);
 			this.tapSettings.Location = new System.Drawing.Point(4, 22);
 			this.tapSettings.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
 			this.tapSettings.Name = "tapSettings";
@@ -429,6 +434,20 @@
 			this.tapSettings.TabIndex = 3;
 			this.tapSettings.Text = "Settings";
 			this.tapSettings.UseVisualStyleBackColor = true;
+	        //
+	        // volumeSettings
+	        //
+            this.volumeSettings.Controls.Add(this.chkVolumeControlShow);
+            this.volumeSettings.Controls.Add(this.chkVolumeControlScrollInEntireMenu);
+            this.volumeSettings.Controls.Add(this.nupVolumeControlDivisibleByNumber);
+			this.volumeSettings.Location = new System.Drawing.Point(4, 22);
+			this.volumeSettings.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+			this.volumeSettings.Name = "volumeSettings";
+			this.volumeSettings.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
+			this.volumeSettings.Size = new System.Drawing.Size(264, 312);
+			this.volumeSettings.TabIndex = 4;
+			this.volumeSettings.Text = "Volume Control";
+			this.volumeSettings.UseVisualStyleBackColor = true;
 			// 
 			// chkShowUnknownDevicesInHotkeyList
 			// 
@@ -597,11 +616,11 @@
 	        // chkVolumeControlShow
 	        //
 	        this.chkVolumeControlShow.AutoSize = true;
-	        this.chkVolumeControlShow.Location = new System.Drawing.Point(14, 292);
+	        this.chkVolumeControlShow.Location = new System.Drawing.Point(14, 16);
 	        this.chkVolumeControlShow.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
 	        this.chkVolumeControlShow.Name = "chkVolumeControlShow";
 	        this.chkVolumeControlShow.Size = new System.Drawing.Size(174, 17);
-	        this.chkVolumeControlShow.TabIndex = 18;
+	        this.chkVolumeControlShow.TabIndex = 3;
 	        this.chkVolumeControlShow.Text = "Show Volume Control in Context Menu";
 	        this.toolTip1.SetToolTip(this.chkVolumeControlShow, "Display a menu that can be used to control the volume in the context menu of the tray icon");
 	        this.chkVolumeControlShow.UseVisualStyleBackColor = true;
@@ -610,11 +629,11 @@
 	        // chkVolumeControlScrollInEntireMenu
 	        //
 	        this.chkVolumeControlScrollInEntireMenu.AutoSize = true;
-	        this.chkVolumeControlScrollInEntireMenu.Location = new System.Drawing.Point(14, 315);
+	        this.chkVolumeControlScrollInEntireMenu.Location = new System.Drawing.Point(14, 39);
 	        this.chkVolumeControlScrollInEntireMenu.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
 	        this.chkVolumeControlScrollInEntireMenu.Name = "chkVolumeControlScrollInEntireMenu";
 	        this.chkVolumeControlScrollInEntireMenu.Size = new System.Drawing.Size(174, 17);
-	        this.chkVolumeControlScrollInEntireMenu.TabIndex = 19;
+	        this.chkVolumeControlScrollInEntireMenu.TabIndex = 5;
 	        this.chkVolumeControlScrollInEntireMenu.Text = "Adjust volume by scrolling menu";
 	        this.toolTip1.SetToolTip(this.chkVolumeControlScrollInEntireMenu, "Scrolling in the context menu - not just the slider itself - will adjust the volume");
 	        this.chkVolumeControlScrollInEntireMenu.UseVisualStyleBackColor = true;
@@ -623,11 +642,11 @@
 	        // nupVolumeControlDivisibleByNumber
 	        //
 	        this.nupVolumeControlDivisibleByNumber.AutoSize = true;
-	        this.nupVolumeControlDivisibleByNumber.Location = new System.Drawing.Point(14, 338);
+	        this.nupVolumeControlDivisibleByNumber.Location = new System.Drawing.Point(14, 62);
 	        this.nupVolumeControlDivisibleByNumber.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
 	        this.nupVolumeControlDivisibleByNumber.Name = "nupVolumeControlDivisibleByNumber";
 	        this.nupVolumeControlDivisibleByNumber.Size = new System.Drawing.Size(27, 17);
-	        this.nupVolumeControlDivisibleByNumber.TabIndex = 20;
+	        this.nupVolumeControlDivisibleByNumber.TabIndex = 6;
 	        this.nupVolumeControlDivisibleByNumber.Text = "Adjust volume by scrolling menu";
 	        // TODO add another check to turn this option on/off
 	        this.toolTip1.SetToolTip(this.nupVolumeControlDivisibleByNumber, "When changing the volume, it will automatically adjust to a number divisible by this one.\r\nTo disable leave it at 0.");
@@ -1103,6 +1122,8 @@
 			this.recordingStrip.ResumeLayout(false);
 			this.tapSettings.ResumeLayout(false);
 			this.tapSettings.PerformLayout();
+			this.volumeSettings.ResumeLayout(false);
+			this.volumeSettings.PerformLayout();
 			this.tapHotkeys.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.hotKeyBindingSource)).EndInit();
@@ -1133,7 +1154,8 @@
         private System.Windows.Forms.Label lblCopyright;
         private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TabPage tapSettings;
+	    private System.Windows.Forms.TabPage tapSettings;
+	    private System.Windows.Forms.TabPage volumeSettings;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.ContextMenuStrip notifyIconStrip;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
