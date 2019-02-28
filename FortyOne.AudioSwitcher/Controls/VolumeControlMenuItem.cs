@@ -96,6 +96,7 @@ namespace FortyOne.AudioSwitcher.Controls
             TextBox.ValueChanged += NumericUpDown_ValueChanged;
             TrackBar.ValueChanged += TrackBar_ValueChanged;
             TrackBar.MouseWheel += MenuItem_Scroll;
+            TextBox.MouseWheel += MenuItem_Scroll;
             Scroll += MenuItem_Scroll;
         }
     }
