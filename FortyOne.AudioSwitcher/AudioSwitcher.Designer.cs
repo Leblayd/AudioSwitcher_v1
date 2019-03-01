@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using FortyOne.AudioSwitcher.Controls;
 
 namespace FortyOne.AudioSwitcher
 {
@@ -1033,7 +1034,6 @@ namespace FortyOne.AudioSwitcher
             // volumeControlMenuItem
             // 
             this.volumeControlMenuItem.Name = "volumeControlMenuItem";
-            this.volumeControlMenuItem.Size = new System.Drawing.Size(293, 22);
             this.volumeControlMenuItem.ValueChanged += volumeControl_ValueChanged;
             this.volumeControlMenuItem.Value = (int)AudioDeviceManager.Controller.DefaultPlaybackDevice.Volume;
             this.volumeControlMenuItem.Change = Program.Settings.VolumeControlDivisibleByNumber;

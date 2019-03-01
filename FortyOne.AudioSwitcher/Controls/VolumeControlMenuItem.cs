@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
@@ -72,7 +72,6 @@ namespace FortyOne.AudioSwitcher.Controls
         public VolumeControlMenuItem() : base(new GroupBox())
         {
             int boxWidth = Width * 2 / 10;
-            int barWidth = Width - boxWidth;
             
             TextBox = new NumericUpDown
             {
@@ -85,9 +84,11 @@ namespace FortyOne.AudioSwitcher.Controls
             {
                 Minimum = 0,
                 Maximum = 100,
-                Width = barWidth,
+                AutoSize = false,
+                Width = Width - TextBox.Width,
+                Height = 23,
                 Location = new Point(boxWidth),
-                TickFrequency = 10
+                TickStyle = TickStyle.None
             };
 
             GroupBox.Controls.Add(TextBox);
