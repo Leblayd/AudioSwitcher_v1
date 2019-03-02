@@ -46,7 +46,7 @@ namespace FortyOne.AudioSwitcher.Controls
         public int Value
         {
             get => TrackBar.Value;
-            set => TrackBar.Value = value;
+            set => TrackBar.Value = value > 100 ? 100 : value < 0 ? 0 : value;
         }
         
         public event EventHandler ValueChanged;
